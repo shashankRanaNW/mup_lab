@@ -1,0 +1,22 @@
+.MODEL TINY
+
+.DATA
+
+ARRAY1  DW  1h ,2h ,3h ,4h ,5h ,6h ,7h ,8h ,9h ,0Ah
+COUNT   DW  10
+
+.CODE
+.STARTUP
+
+    MOV AX, OFFSET ARRAY1
+    ADD AX, 18
+    MOV SI, AX
+    ADD AX, 10
+    MOV DI, AX
+    MOV CX, COUNT
+    STD
+
+REP MOVSW
+
+.EXIT
+END
