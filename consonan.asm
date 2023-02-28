@@ -3,8 +3,8 @@
 
 .data
 
-str1    db "heena neena aur kareena"  
-cnt     dw  23
+str1    db "we are taught you must blame your parents your sisters your brothers the school the teachers  but never blame yourself it is never your fault but it is always your fault because if you wanted to change you are the one who has got to change "  
+cnt     dw  239
 
 .code
 .startup
@@ -12,53 +12,74 @@ cnt     dw  23
     MOV SI, OFFSET str1
     MOV CX,cnt
     MOV DX,0h
-    
+
+X0: 
     MOV     AL, [SI]
 
-X0: CMP   AL,'a'
-    JNE     X1
-    INC     DX
+    CMP   AL,'a'
+    JE     X1
 
-X1: CMP   AL,'e'
-    JNE     X2
-    INC DX
+    CMP   AL,'e'
+    JE     X1
 
-X2: CMP   AL,'i'
-    JNE     X3
-    INC DX
+    CMP   AL,'i'
+    JE     X1
 
-X3: CMP   AL,'o'
-    JNE     X4
-    INC DX
+    CMP   AL,'o'
+    JE     X1
 
-X4: CMP   AL,'u'
-    JNE     X5
-    INC DX
+    CMP   AL,'u'
+    JE     X1
 
-X5: CMP   AL,' '
-    JNE X6
-    INC DX
-
-X6: DEC CX
+    CMP   AL,' '
+    JE     X1
+    INC DX 
+X1: 
     INC SI
-
+    DEC CX
     JNZ X0
 
-    MOV CX, cnt
-    SUB CX, DX
-    MOV BL, DL
-    MOV BH, DL
+    MOV CX,DX
+    MOV AX, 0h
+
+X2: ADD AL, 01h
+    DAA
+    CMP AL, 0h
+    JNE  X3
+    INC AH
+X3: LOOP X2
+
+    MOV CL, AL
+
+    MOV BH, AH
+    AND AH, 0Fh
     AND BH, 0F0h
-    ROR BH, 4
+    SHR BH, 4
     OR  BH, 30h
-    AND BL, 0fh
+    OR  AH, 30h
+    MOV DH, AH
+
+    MOV AH, 02h
+    MOV DL, BH
+    INT 21h
+
+    MOV DL, DH
+    INT 21h
+
+    MOV BL, CL
+    MOV BH, CL
+    AND BH, 0F0h
+    SHR BH, 4h
+    OR  BH, 30h
+    AND BL, 0Fh
     OR  BL, 30h
 
     MOV AH, 02h
     MOV DL, BH
     INT 21h
+
     MOV DL, BL
     INT 21h
-
+    
 .EXIT
 END
