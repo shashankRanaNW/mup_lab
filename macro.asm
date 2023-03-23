@@ -22,9 +22,7 @@ cout    MACRO   A
         ENDM
 
 hexDec		MACRO	hex
-		PUSH	AX
-		PUSH	BX
-		PUSH 	cx
+		PUSHA
 		MOV 	CX, 0h
 		mov 	bx, 0h
 		MOV		AX,	hex
@@ -41,9 +39,7 @@ hexDec		MACRO	hex
 		ADD 	BX, AX
 		MOV 	decc, BX
 		MOV decc, BX
-		POP CX
-		POP BX
-		POP AX
+		POPA
 		ENDM
 
 
