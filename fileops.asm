@@ -49,6 +49,11 @@ hand1	dw	?
 	LEA	DX, dat1
 	MOV CX, cnt1
 	INT 21h
+
+	;delete file
+	MOV	AH, 41h
+	MOV	DX, OFFSET filn
+	INT 21h
 	
 ;close the file
 	MOV	AH, 3Eh
